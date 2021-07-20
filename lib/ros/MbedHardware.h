@@ -11,12 +11,12 @@
 #include <chrono>
 #include <mbed.h>
 
-#include "MyBuffer.h"
+#define BUF_SIZE 256
 
 class MbedHardware {
   public:
-    MbedHardware(PinName tx, PinName rx, long baud = 57600, uint32_t buf_size = 256)
-      : iostream(tx, rx), baud_(baud), buffer_(buf_size) {
+    MbedHardware(PinName tx, PinName rx, long baud = 57600)
+      : iostream(tx, rx), baud_(baud) {
       iostream.attach(callback(this, &MbedHardware::rxIrq), SerialBase::RxIrq);
         t.start();
     }
@@ -38,7 +38,11 @@ class MbedHardware {
     }
 
     int read(){
-        return buffer_.available() ? buffer_.get() : -1;
+        if (buffer_.empty()) return -1;
+
+        char c = 0;
+        buffer_.pop(c);
+        return c;
     };
 
     void write(uint8_t* data, int length) {
@@ -54,14 +58,14 @@ protected:
     UnbufferedSerial iostream;
     long baud_;
     Timer t;
-    MyBuffer<char> buffer_;
+    CircularBuffer<char, BUF_SIZE> buffer_;
 
 private:
     void rxIrq() {
         char c;
 
         if (iostream.read(&c, 1))  {
-            buffer_.put(c);
+            buffer_.push(c);
         }
     }
 };
