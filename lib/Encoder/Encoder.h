@@ -11,6 +11,8 @@ public:
 
   void update();
 
+  void reset();
+
 private:
   InterruptIn pinA_;
   DigitalIn pinB_;
