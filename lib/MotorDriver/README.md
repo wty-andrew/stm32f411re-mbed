@@ -30,3 +30,4 @@
   - https://www.pololu.com/product/2507
   - https://github.com/pololu/dual-vnh5019-motor-shield
 - https://os.mbed.com/users/ianmcc/code/VNH5019/
+- https://github.com/bmellink/VNH3SP30

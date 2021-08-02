@@ -19,11 +19,15 @@ public:
     PinName EN2DIAG2,
     PinName CS2);
 
-  MotorDriver();
+  static MotorDriver DualVNH5019();
+
+  static MotorDriver MonsterMotoShield();
 
   void set_speeds(float left_speed, float right_speed);
 
   void set_brakes(float left_brake, float right_brake);
+
+  void stop();
 
 private:
   Motor left_motor_;

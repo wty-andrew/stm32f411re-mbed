@@ -11,7 +11,7 @@ public:
 
   void stop();
 
-  void brake(float brake);
+  void brake(float power); // 0 ~ 1.0
 
   float get_current_mA();
 

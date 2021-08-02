@@ -27,10 +27,10 @@ void Motor::set_speed(float speed) {
 
 void Motor::stop() { set_speed(0.0); }
 
-void Motor::brake(float brake) {
+void Motor::brake(float power) {
   INA_ = 0;
   INB_ = 0;
-  PWM_ = clamp(abs(brake), 0.0, 1.0);
+  PWM_ = clamp(abs(power), 0.0, 1.0);
 }
 
 // see https://forum.sparkfun.com/viewtopic.php?t=38903
